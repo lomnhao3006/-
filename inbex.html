@@ -301,18 +301,9 @@
     </div>
 
     <script>
-        function copyText(text, element) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-999999px";
-            textArea.style.top = "-999999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
+        async function copyText(text, element) {
             try {
-                document.execCommand('copy');
+                await navigator.clipboard.writeText(text);
                 showToast();
 
                 // เปลี่ยนป้ายคำว่าคัดลอกชั่วคราว
@@ -331,8 +322,6 @@
             } catch (err) {
                 console.error('ไม่สามารถคัดลอกได้:', err);
             }
-
-            document.body.removeChild(textArea);
         }
 
         function showToast() {
